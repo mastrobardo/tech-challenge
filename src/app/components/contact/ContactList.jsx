@@ -16,7 +16,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const ContactList = ({state, actions}) => {
-    console.log(actions)
+    console.log('render!')
+
+
+
     return (
         <div className='contacts'>
             <h1>You Have {state ? state.byIds.length : 0}  Contacts</h1>
@@ -25,18 +28,18 @@ const ContactList = ({state, actions}) => {
 
                     Object.keys(state.contacts).map((item, i) => {
                         return (
-                                <DumbContact
-                                    key={i * i} {...state.contacts[item]}
-                                    selected={state.currentSelected === state.contacts[item].id}
-                                    onClick={
-                                        () => {actions.selectContact(state.contacts[item].id)}
-                                    }
-                                    onDelete={
-                                        event => {event.stopPropagation();actions.deleteContact(state.contacts[item].id)}
-                                    }
-                                >
-                                    {state.contacts[item].name}
-                                </DumbContact>
+                            <DumbContact
+                                key={i * i} {...state.contacts[item]}
+                                selected={state.currentSelected === state.contacts[item].id}
+                                onClick={
+                                    () => {event.stopPropagation(); actions.selectContact(state.contacts[item].id)}
+                                }
+                                onDelete={
+                                    event => {event.stopPropagation(); actions.deleteContact(state.contacts[item].id)}
+                                }
+                            >
+                                {state.contacts[item].name}
+                            </DumbContact>
                         )
                     })
                 }

@@ -25,10 +25,11 @@ export const listContacts = isVisible => ({
     }
 })
 
-export const deleteContact = id => ({
+export const deleteContact = id => {console.log('ID to be deleted', id) ;return ({
     type: ActionsTypes.DEL,
     payload: {id}
-});
+})
+};
 
 export const selectContact = currentSelected => {
     console.log('currentSelected', currentSelected)

@@ -5,7 +5,8 @@ const initialState = {
     byIds: [1, 2],
     contacts: [
         {id: 0, name: 'write Here', surname: 'your surname', email: 'your email', country: 'yourcountry'},
-        {id: 1, name: 'aaa bbb', surname: 'cccc', email: 'adsdfsdf', country: 'yourcountry'}
+        {id: 1, name: 'aaa bbb', surname: 'cccc', email: 'adsdfsdf', country: 'yourcountry'},
+        {id: 2, name: 'ccccccc', surname: '11111', email: '11111', country: '1111'}
     ],
     countries: countries,
     currentSelected: -1
@@ -36,7 +37,7 @@ export default (state = initialState, action) => {
             let newContacts = {
                 contacts: state.contacts.concat().filter(item => action.payload.id !== item.id)
             };
-            console.log(action.payload.id, newContacts)
+           console.log(Object.assign({}, state, newContacts).contacts)
             return Object.assign({}, state, newContacts)
         }
 

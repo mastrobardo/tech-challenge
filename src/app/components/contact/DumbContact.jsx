@@ -2,16 +2,20 @@ import React from 'react'
 import * as Actions from '../../redux/reducers/actions';
 
 const DumbContact = props => {
+  console.log(props.name)
   return (
-    <li>
-      <div onClick={props.onClick} className={ props.selected ? 'selected' : ''}>
+    <li key={props.id * 3}>
+      <div onClick={props.onClick} className={props.selected ? 'selected' : ''}>
         <ul>
-          <li className='contact-read--name'> {props.name} </li>
-          <li className='contact-read--surname'> {props.surname} </li>
-          <li className='contact-read--email'> {props.email} </li>
-          <li className='contact-read--country'> {props.country} </li>
+          <li className='contact-read--name'>
+            <input disabled={!props.selected} defaultValue={props.name} />
+          </li>
+          <li className={props.selected ? '' : 'hidden'}>
+
+            <button onClick={props.onDelete}>DELETE</button>
+          </li>
+
         </ul>
-        <button onClick={props.onDelete}>DELETE</button>
       </div>
     </li>
   )
