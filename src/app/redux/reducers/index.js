@@ -2,42 +2,65 @@ import * as ActionTypes from "./actions/types";
 import countries from './constants' //temp
 
 const initialState = {
-    byIds: [1, 2],
     contacts: [
-        {id: 0, name: 'write Here', surname: 'your surname', email: 'your email', country: 'yourcountry'},
-        {id: 1, name: 'aaa bbb', surname: 'cccc', email: 'adsdfsdf', country: 'yourcountry'},
-        {id: 2, name: 'ccccccc', surname: '11111', email: '11111', country: '1111'}
+        // {id: 0, name: 'write Here', surname: 'your surname', email: 'your email', country: 'yourcountry'},
     ],
     countries: countries,
-    currentSelected: -1
-
+    currentSelected: -1,
+    adding: false
 }
+
+const newContact = {
+    name: '',
+    surname: '',
+    email: '',
+    country: ''
+}
+
 export default (state = initialState, action) => {
-    console.log(action.type, action.payload)
     switch (action.type) {
         case ActionTypes.SELECT: {
-            return Object.assign({}, state, action.payload)
+            if (state.currentSelected === action.payload.id) {
+                return state;
+            }
+            let newState = {
+                currentSelected: action.payload.id
+            };
+            return Object.assign({}, state, newState)
         }
         case ActionTypes.ADD: {
-            return {
-                contacts: {
-                    ...state.contacts,
-                    [action.id]: action.payload
-                }
+            if (state.adding) {
+                return state;
             }
+            let newState = {
+                contacts: state.contacts.concat(),
+                currentSelected: action.payload.id,
+                adding: true
+            };
+            let c = {...newContact};
+            c.id = action.payload.id
+            newState.contacts.unshift(c)
+            console.log('adding', newState.contacts)
+            return Object.assign({}, state, newState)
         }
-        case ActionTypes.EDIT: {
 
-            return {
-                ...state
-            }
+        case ActionTypes.EDIT: {
+            let id = action.payload.id
+            let contactsCopy = state.contacts.concat()
+            let newList = state.contacts.concat()
+            newList.filter(item => id === item.id)
+            newList = newList.map(item => Object.assign({}, item, action.payload.contact));
+            return Object.assign({}, state, {adding: false, currentSelected: -1, contacts: newList})
         }
 
         case ActionTypes.DEL: {
+            let id = action.payload.id
             let newContacts = {
-                contacts: state.contacts.concat().filter(item => action.payload.id !== item.id)
+                contacts: state.contacts
+                    .concat()
+                    .filter(item => id !== item.id)
             };
-           console.log(Object.assign({}, state, newContacts).contacts)
+
             return Object.assign({}, state, newContacts)
         }
 

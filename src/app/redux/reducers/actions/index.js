@@ -1,15 +1,18 @@
 import * as ActionsTypes from './types'
+const uuidv4 = require('uuid/v4');
 
-let nextId = 0;
+export const addContact = contact => {
+    let nextId = uuidv4();
+    return ({
+        type: ActionsTypes.ADD,
 
-export const addContact = contact => ({
-    type: ActionsTypes.ADD,
-    id: ++nextId,
-    payload: {
-        id: nextId,
-        contact
-    }
-});
+        payload: {
+            id: nextId,
+            currentSelected: nextId,
+            contact
+        }
+    })
+};
 
 export const showForm = isVisible => ({
     type: ActionsTypes.SHOW,
@@ -25,21 +28,27 @@ export const listContacts = isVisible => ({
     }
 })
 
-export const deleteContact = id => {console.log('ID to be deleted', id) ;return ({
-    type: ActionsTypes.DEL,
-    payload: {id}
-})
-};
+export const deleteContact = id => {
+    return ({
+        type: ActionsTypes.DEL,
+        payload: {
+            id, currentSelected: -1
+        }
+    })
+}
 
-export const selectContact = currentSelected => {
-    console.log('currentSelected', currentSelected)
+
+export const selectContact = id => {
     return ({
         type: ActionsTypes.SELECT,
-        payload: {currentSelected}
+        payload: {id}
     })
 };
 
-export const editContact = (id, contact) => ({
-    type: ActionsTypes.EDIT,
-    payload: {id, contact}
-});
+export const editContact = (id, contact) => {
+    
+    return {
+        type: ActionsTypes.EDIT,
+        payload: {id, contact}
+    };
+}

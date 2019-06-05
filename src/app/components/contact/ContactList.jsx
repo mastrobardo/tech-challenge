@@ -22,7 +22,7 @@ const ContactList = ({state, actions}) => {
 
     return (
         <div className='contacts'>
-            <h1>You Have {state ? state.byIds.length : 0}  Contacts</h1>
+            <h1>You Have {state ? state.contacts.length :'No'}  Contacts</h1>
             <ul>
                 {
 
@@ -32,10 +32,14 @@ const ContactList = ({state, actions}) => {
                                 key={i * i} {...state.contacts[item]}
                                 selected={state.currentSelected === state.contacts[item].id}
                                 onClick={
-                                    () => {event.stopPropagation(); actions.selectContact(state.contacts[item].id)}
+                                    () => {actions.selectContact(state.contacts[item].id)}
                                 }
                                 onDelete={
-                                    event => {event.stopPropagation(); actions.deleteContact(state.contacts[item].id)}
+                                    event => {
+                                        event.stopPropagation(); 
+                                        console.log('going to delete -', state.contacts[item].id)
+                                        actions.deleteContact(state.contacts[item].id)
+                                    }
                                 }
                             >
                                 {state.contacts[item].name}
