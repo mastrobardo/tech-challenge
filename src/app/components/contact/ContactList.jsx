@@ -1,9 +1,9 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import * as Actions from '../../redux/reducers/actions'
+import * as actions from '../../redux/reducers/actions'
 import DumbContact from './DumbContact'
-
+import store from '../../redux/store'
 
 const mapStateToProps = state => {
     return {
@@ -11,35 +11,40 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(Actions, dispatch)
-})
+const getContacts = (id) => {
+    let form = document.getElementById('form' + id);
+    const name = form.name.value;
+    const surname = form.surname.value;
+    const email = form.email.value;
+    return {name, surname, email}
+}
 
-const ContactList = ({state, actions}) => {
-    console.log('render!')
-
-
-
+const ContactList = (props) => {
+    let {state, dispatch} = props;
     return (
         <div className='contacts'>
-            <h1>You Have {state ? state.contacts.length :'No'}  Contacts</h1>
+            <h1>You Have {state ? state.contacts.length : 'No'} Contacts</h1>
+            <button className='button-add' onClick={() => (store.dispatch(actions.addContact({})))}>ADD CONTACT</button>
             <ul>
                 {
-
                     Object.keys(state.contacts).map((item, i) => {
+                        let myID = state.contacts[item].id;
                         return (
                             <DumbContact
-                                key={i * i} {...state.contacts[item]}
-                                selected={state.currentSelected === state.contacts[item].id}
+                                key={i * i} 
+                                
+                                {...state.contacts[item]}
+
+                                selected={state.currentSelected === myID}
+
                                 onClick={
-                                    () => {actions.selectContact(state.contacts[item].id)}
+                                    () => {event.stopPropagation(); dispatch(actions.selectContact(myID))}
                                 }
                                 onDelete={
-                                    event => {
-                                        event.stopPropagation(); 
-                                        console.log('going to delete -', state.contacts[item].id)
-                                        actions.deleteContact(state.contacts[item].id)
-                                    }
+                                    event => {event.stopPropagation(); dispatch(actions.deleteContact(myID))}
+                                }
+                                onEdit={
+                                    event => {event.stopPropagation(); store.dispatch(actions.editContact(myID, getContacts(myID)))}
                                 }
                             >
                                 {state.contacts[item].name}
@@ -54,5 +59,5 @@ const ContactList = ({state, actions}) => {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    // mapDispatchToProps
 )(ContactList)

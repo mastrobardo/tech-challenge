@@ -18,9 +18,10 @@ const newContact = {
 }
 
 export default (state = initialState, action) => {
+    console.log('Action:' + action.type, state, state.contacts)
     switch (action.type) {
         case ActionTypes.SELECT: {
-            if (state.currentSelected === action.payload.id) {
+            if (state.currentSelected !== -1) {
                 return state;
             }
             let newState = {
@@ -40,7 +41,6 @@ export default (state = initialState, action) => {
             let c = {...newContact};
             c.id = action.payload.id
             newState.contacts.unshift(c)
-            console.log('adding', newState.contacts)
             return Object.assign({}, state, newState)
         }
 
@@ -48,11 +48,16 @@ export default (state = initialState, action) => {
             let id = action.payload.id
             let contactsCopy = state.contacts.concat()
             let newList = state.contacts.concat()
-            newList.filter(item => id === item.id)
-            newList = newList.map(item => Object.assign({}, item, action.payload.contact));
-            return Object.assign({}, state, {adding: false, currentSelected: -1, contacts: newList})
+            contactsCopy = contactsCopy.filter(item => id !== item.id)
+            newList = newList
+                .filter(item => id === item.id)
+                .map(item => {
+                    return Object.assign({}, item, action.payload.contact)
+                });
+            contactsCopy = contactsCopy.concat(newList);
+            return Object.assign({}, state, {adding: false, currentSelected: -1, contacts: contactsCopy})
         }
-
+        contact
         case ActionTypes.DEL: {
             let id = action.payload.id
             let newContacts = {
@@ -61,7 +66,7 @@ export default (state = initialState, action) => {
                     .filter(item => id !== item.id)
             };
 
-            return Object.assign({}, state, newContacts)
+            return Object.assign({}, state, newContacts, {currentSelected: -1, adding: false})
         }
 
         default:

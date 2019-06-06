@@ -2,14 +2,29 @@ import rootReducer from './reducers';
 import {createStore, applyMiddleware, compose} from 'redux';
 import createLogger from 'redux-logger';
 import simple from './reducers'
+import {loadState, saveState} from './localStorage'
 
-const logger = createLogger();
+// const logger = createLogger();
 
-const enhancer = compose(
-  applyMiddleware(logger)
+// const enhancer = compose(
+//   applyMiddleware(logger)
+// );
+
+
+
+const persistedState = loadState();
+console.log('load STATE')
+const store = createStore(
+  simple,
+  persistedState
 );
 
-const store = createStore(simple, null, enhancer);
+store.subscribe(() => {
+  saveState({
+    contacts: store.getState().contacts
+  });
+});
+
 window.store = store
 
-export default createStore(rootReducer);
+export default store;
