@@ -6,24 +6,20 @@ import {loadState, saveState} from './localStorage'
 import {countriesLoaded, fetchRemoteDatas} from './reducers/actions'
 
 const persistedState = loadState();
-
 const store = createStore(
   simple,
-  persistedState
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
-
 const countriesUrl = 'https://restcountries.eu/rest/v2/all?fields=name'
-
 async function countriesLoadedCB() {
   let response = await fetch(countriesUrl)
   return await response.json()
 }
-
 async function dataLoaded() {
   let c = await countriesLoadedCB();
   store.dispatch({type: 'FETCHED', payload: {countries: c}})
 }
-
 store.subscribe(() => {
   saveState({
     contacts: store.getState().contacts,
@@ -31,7 +27,6 @@ store.subscribe(() => {
     countries: store.getState().countries
   });
 });
-
 if (persistedState === undefined ||
   persistedState.countries === undefined ||
   !persistedState.countries.length
@@ -39,7 +34,5 @@ if (persistedState === undefined ||
   store.dispatch({type: 'FETCHINGDATAS'})
   dataLoaded()
 }
-
 window.store = store
-
 export default store;

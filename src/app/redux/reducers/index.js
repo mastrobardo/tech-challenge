@@ -1,6 +1,4 @@
 import * as ActionTypes from "./actions/types";
-import countries from './constants' //temp
-
 const initialState = {
     contacts: [
         // {id: 0, name: 'write Here', surname: 'your surname', email: 'your email', country: 'yourcountry'},
@@ -9,14 +7,12 @@ const initialState = {
     currentSelected: -1,
     adding: false
 }
-
 const newContact = {
     name: '',
     surname: '',
     email: '',
     country: ''
 }
-
 export default (state = initialState, action) => {
     console.log('Action:' + action.type, state)
     switch (action.type) {
@@ -41,7 +37,6 @@ export default (state = initialState, action) => {
             newState.contacts.unshift(c)
             return Object.assign({}, state, newState)
         }
-
         case ActionTypes.EDIT: {
             let id = action.payload.id
             let contactsCopy = state.contacts.concat()
@@ -63,7 +58,6 @@ export default (state = initialState, action) => {
                     .concat()
                     .filter(item => id !== item.id)
             };
-
             return Object.assign({}, state, newContacts, {currentSelected: -1, adding: false})
         }
         case ActionTypes.FETCHED: {

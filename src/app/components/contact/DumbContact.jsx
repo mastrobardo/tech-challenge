@@ -11,8 +11,7 @@ const DumbContact = props => {
           e.preventDefault()
           if (e.currentTarget.checkValidity()) {
             props.onEdit();
-
-          }          // ;
+          }
           return false
         }}>
           <fieldset>
@@ -22,31 +21,27 @@ const DumbContact = props => {
               name='name' required disabled={!props.selected} defaultValue={props.name} />
           </fieldset>
           <fieldset>
-
             <input id={'surname' + props.id} type='text'
-              placeholder="Your , e.g. Rossi" 
+              placeholder="Your , e.g. Rossi"
               // pattern="[a-zA-Z]"
               required name='surname'
               disabled={!props.selected} defaultValue={props.surname} />
           </fieldset>
-
           <fieldset>
-            <input id={'email' + props.id} className="Input-text" name='email' type='email'
+            <input id={'email' + props.id} className="Input-text"
+              name='email' type='email'
               placeholder="Your email name, e.g. email@server.example"
               required
               // pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
               disabled={!props.selected} defaultValue={props.email} />
-
           </fieldset>
           <fieldset>
             <RemoteCountrySelect countries={props.countries} ></RemoteCountrySelect>
           </fieldset>
-
           <div className={props.selected ? '' : 'hidden'}>
-            <input type="submit" value='Save' className='btn btn-alpha'/>
-            <input onClick={props.onDelete} type="button" value='DELETE'  className='btn btn-alpha' />
+            <input type="submit" value='Save' className='btn btn-alpha' />
+            <input onClick={props.onDelete} type="button" value='DELETE' className='btn btn-alpha' />
           </div>
-
         </form>
       </div>
     </li >
