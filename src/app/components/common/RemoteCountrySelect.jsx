@@ -1,14 +1,15 @@
-import countries from '../../redux/reducers/constants';
-
+import React from 'react'
 const RemoteCountrySelect = props => {
     return (
-        <select className='country'>
-            {
-                countries.map(item => {
-                    return <option value={item.name}>{item.name}</option>
-                })
-            }
-        </select>
+        <div className='custom-dropdown' >
+            <select className='country'>
+                {
+                    props.countries.map(item => {
+                        return < option key={Math.random()} value={item.name}>{item.name}</option>
+                    })
+                }
+            </select>
+        </div>
     )
 
 }

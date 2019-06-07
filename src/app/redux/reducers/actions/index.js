@@ -14,20 +14,6 @@ export const addContact = contact => {
     })
 };
 
-export const showForm = isVisible => ({
-    type: ActionsTypes.SHOW,
-    payload: {
-        formIsVisible: true
-    }
-})
-
-export const listContacts = isVisible => ({
-    type: ActionsTypes.LIST,
-    payload: {
-        formIsVisible: false
-    }
-})
-
 export const deleteContact = id => {
     return ({
         type: ActionsTypes.DEL,
@@ -36,7 +22,6 @@ export const deleteContact = id => {
         }
     })
 }
-
 
 export const selectContact = id => {
     return ({
@@ -50,5 +35,24 @@ export const editContact = (id, contact) => {
     return {
         type: ActionsTypes.EDIT,
         payload: {id, contact}
+    };
+}
+
+export const fetchRemoteDatas = () => {
+    return {
+        type: ActionsTypes.FETCHINGDATAS,
+        payload: {
+            fetching: true
+        }
+    };
+}
+
+export const countriesLoaded = countries => {
+    return {
+        type: ActionsTypes.FETCHED,
+        payload: {
+            fetching: false, 
+            countries: countries
+        }
     };
 }

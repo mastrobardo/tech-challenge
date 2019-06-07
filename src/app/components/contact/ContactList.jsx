@@ -13,8 +13,6 @@ const mapStateToProps = state => {
 
 const getContacts = (id) => {
     let form = document.getElementById('form' + id);
-    form.checkValidity()
-    debugger
     const name = form.name.value;
     const surname = form.surname.value;
     const email = form.email.value;
@@ -38,6 +36,8 @@ const ContactList = (props) => {
                                 {...state.contacts[item]}
 
                                 selected={state.currentSelected === myID}
+                                
+                                countries={store.getState().countries}
 
                                 onClick={
                                     () => {event.stopPropagation(); dispatch(actions.selectContact(myID))}

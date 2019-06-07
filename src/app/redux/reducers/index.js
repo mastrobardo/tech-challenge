@@ -5,7 +5,7 @@ const initialState = {
     contacts: [
         // {id: 0, name: 'write Here', surname: 'your surname', email: 'your email', country: 'yourcountry'},
     ],
-    countries: countries,
+    countries: undefined,
     currentSelected: -1,
     adding: false
 }
@@ -18,13 +18,10 @@ const newContact = {
 }
 
 export default (state = initialState, action) => {
-    console.log('Action:' + action.type, state, state.contacts)
+    console.log('Action:' + action.type, state)
     switch (action.type) {
         case ActionTypes.SELECT: {
-            // if (state.currentSelected !== -1) {
-            //     console.log('already got selection', state.currentSelected )
-            //     return state;
-            // }
+            
             let newState = {
                 currentSelected: action.payload.id
             };
@@ -69,7 +66,11 @@ export default (state = initialState, action) => {
 
             return Object.assign({}, state, newContacts, {currentSelected: -1, adding: false})
         }
-
+        case ActionTypes.FETCHED: {
+            alert()
+            let countries = action.payload.countries
+            return Object.assign({}, state, {countries: countries})
+        }
         default:
             return {
                 ...state
