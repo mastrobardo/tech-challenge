@@ -13,6 +13,8 @@ const mapStateToProps = state => {
 
 const getContacts = (id) => {
     let form = document.getElementById('form' + id);
+    form.checkValidity()
+    debugger
     const name = form.name.value;
     const surname = form.surname.value;
     const email = form.email.value;
@@ -44,7 +46,7 @@ const ContactList = (props) => {
                                     event => {event.stopPropagation(); dispatch(actions.deleteContact(myID))}
                                 }
                                 onEdit={
-                                    event => {event.stopPropagation(); store.dispatch(actions.editContact(myID, getContacts(myID)))}
+                                    event => { store.dispatch(actions.editContact(myID, getContacts(myID)))}
                                 }
                             >
                                 {state.contacts[item].name}

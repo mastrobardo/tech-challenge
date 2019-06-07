@@ -2,12 +2,16 @@ import React from 'react'
 import * as Actions from '../../redux/reducers/actions';
 
 const DumbContact = props => {
-
+  const myFunction = () => {}
   return (
     <li key={props.id}>
       <div onClick={props.onClick} className={props.selected ? 'contact selected' : 'contact'} >
-        <form name={'form' + props.id} id={'form' + props.id} onSubmit={e => {
-          e.preventDefault();
+        <form autoComplete="off" name={'form' + props.id} id={'form' + props.id} onSubmit={e => {
+          console.log(e.currentTarget)
+          if (e.currentTarget.checkValidity()) {
+            props.onEdit();
+          }          // e.preventDefault();
+          // return false
         }}>
           <ul className=''>
             <li className='contact-read--name Input group'>
@@ -36,7 +40,7 @@ const DumbContact = props => {
             <li className='contact-read--country'> {props.country} </li>
 
             <li className={props.selected ? '' : 'hidden'}>
-              <button onClick={props.onEdit} type="submit" value='Save' >SAVE</button >
+              <input type="submit" value='Save' />
               <input onClick={props.onDelete} type="button" value='DELETE' />
             </li>
 

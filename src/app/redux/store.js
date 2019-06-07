@@ -13,7 +13,6 @@ import {loadState, saveState} from './localStorage'
 
 
 const persistedState = loadState();
-console.log('load STATE')
 const store = createStore(
   simple,
   persistedState

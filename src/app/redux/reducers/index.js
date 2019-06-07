@@ -21,9 +21,10 @@ export default (state = initialState, action) => {
     console.log('Action:' + action.type, state, state.contacts)
     switch (action.type) {
         case ActionTypes.SELECT: {
-            if (state.currentSelected !== -1) {
-                return state;
-            }
+            // if (state.currentSelected !== -1) {
+            //     console.log('already got selection', state.currentSelected )
+            //     return state;
+            // }
             let newState = {
                 currentSelected: action.payload.id
             };
