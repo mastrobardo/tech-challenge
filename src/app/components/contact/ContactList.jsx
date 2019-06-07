@@ -24,19 +24,21 @@ const ContactList = (props) => {
     return (
         <div className='contacts'>
             <h1>You Have {state ? state.contacts.length : 'No'} Contacts</h1>
-            <button className='button-add' onClick={() => (store.dispatch(actions.addContact({})))}>ADD CONTACT</button>
+            <div className='btn-container'>
+                <button className='btn btn-delta' onClick={() => (store.dispatch(actions.addContact({})))}>+</button>
+            </div>
             <ul>
                 {
                     Object.keys(state.contacts).map((item, i) => {
                         let myID = state.contacts[item].id;
                         return (
                             <DumbContact
-                                key={i * i} 
-                                
+                                key={i * i}
+
                                 {...state.contacts[item]}
 
                                 selected={state.currentSelected === myID}
-                                
+
                                 countries={store.getState().countries}
 
                                 onClick={
@@ -46,7 +48,7 @@ const ContactList = (props) => {
                                     event => {event.stopPropagation(); dispatch(actions.deleteContact(myID))}
                                 }
                                 onEdit={
-                                    event => { store.dispatch(actions.editContact(myID, getContacts(myID)))}
+                                    event => {store.dispatch(actions.editContact(myID, getContacts(myID)))}
                                 }
                             >
                                 {state.contacts[item].name}

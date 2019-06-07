@@ -8,8 +8,7 @@ const App = _ => {
 
    return (
       <div>
-         {}
-         <h1>List</h1>
+         
          <ContactList></ContactList>
       </div>
    )

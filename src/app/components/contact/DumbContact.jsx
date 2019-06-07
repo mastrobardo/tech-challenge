@@ -17,20 +17,22 @@ const DumbContact = props => {
         }}>
           <fieldset>
             <input id={'name' + props.id} className="Input-text" type='text'
-              // placeholder="Your first name, e.g. Nicholas"
+              placeholder="Your first name, e.g. Nicholas"
+              // pattern="[a-zA-Z]"
               name='name' required disabled={!props.selected} defaultValue={props.name} />
           </fieldset>
           <fieldset>
 
             <input id={'surname' + props.id} type='text'
-              // placeholder="Your , e.g. Rossi" 
+              placeholder="Your , e.g. Rossi" 
+              // pattern="[a-zA-Z]"
               required name='surname'
               disabled={!props.selected} defaultValue={props.surname} />
           </fieldset>
 
           <fieldset>
             <input id={'email' + props.id} className="Input-text" name='email' type='email'
-              // placeholder="Your email name, e.g. email@server.example"
+              placeholder="Your email name, e.g. email@server.example"
               required
               // pattern="[a-zA-Z]{3,}@[a-zA-Z]{3,}[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,}"
               disabled={!props.selected} defaultValue={props.email} />
@@ -41,8 +43,8 @@ const DumbContact = props => {
           </fieldset>
 
           <div className={props.selected ? '' : 'hidden'}>
-            <input type="submit" value='Save' />
-            <input onClick={props.onDelete} type="button" value='DELETE' />
+            <input type="submit" value='Save' className='btn btn-alpha'/>
+            <input onClick={props.onDelete} type="button" value='DELETE'  className='btn btn-alpha' />
           </div>
 
         </form>

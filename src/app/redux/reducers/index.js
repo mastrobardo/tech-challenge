@@ -67,7 +67,6 @@ export default (state = initialState, action) => {
             return Object.assign({}, state, newContacts, {currentSelected: -1, adding: false})
         }
         case ActionTypes.FETCHED: {
-            alert()
             let countries = action.payload.countries
             return Object.assign({}, state, {countries: countries})
         }
