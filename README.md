@@ -7,6 +7,9 @@ localStorage (IndexedDb might have been a better solution but this was faster )
 test cafe for end to end tests  
 ava for unit tests  
 
+**BEFORE ANYTHING**  
+run ```npm i```. I left that out of everyscript cause might be heavy
+
 REGARDING TESTS  
 i only write a couple of tests, forgive me
 
