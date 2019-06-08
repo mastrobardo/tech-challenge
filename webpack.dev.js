@@ -29,7 +29,8 @@ module.exports = {
 	},
 	plugins: [new HtmlWebpackPlugin({
 		title: 'Skilling',
-		template: 'index.dev.html'
+		template: './index.dev.ejs',
+		filename: 'index.html'
 	}),
 	new CopyPlugin([
 		{from: './manifest.json', to: 'manifest.json'},
@@ -38,7 +39,7 @@ module.exports = {
 	])
 	],
 	resolve: {
-		loader	extensions: ['*', '.js', '.jsx']
+		extensions: ['.ejs', '.js', '.jsx']
 	},
 
 	entry: {
