@@ -14,7 +14,6 @@ const newContact = {
     country: ''
 }
 export default (state = initialState, action) => {
-    console.log('Action:' + action.type, state)
     switch (action.type) {
         case ActionTypes.SELECT: {
             
