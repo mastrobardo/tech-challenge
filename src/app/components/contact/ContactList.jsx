@@ -4,17 +4,19 @@ import {connect} from 'react-redux'
 import * as actions from '../../redux/reducers/actions'
 import DumbContact from './DumbContact'
 import store from '../../redux/store'
+
 const mapStateToProps = state => {
     return {
         state: state
     }
 };
 const getContacts = (id) => {
-    let form = document.getElementById('form' + id);
+    const form = document.getElementById('form' + id);
     const name = form.name.value;
     const surname = form.surname.value;
     const email = form.email.value;
-    return {name, surname, email}
+    const country = form.country.value;
+    return {name, surname, email, country}
 }
 const ContactList = (props) => {
     let {state, dispatch} = props;
@@ -43,6 +45,9 @@ const ContactList = (props) => {
                                 onEdit={
                                     event => {store.dispatch(actions.editContact(myID, getContacts(myID)))}
                                 }
+                                onSelect = {
+                                    event => {store.dispatch(actions.editContact(myID, getContacts(myID)))}
+                                }
                             >
                                 {state.contacts[item].name}
                             </DumbContact>
@@ -54,6 +59,5 @@ const ContactList = (props) => {
     )
 }
 export default connect(
-    mapStateToProps,
-    // mapDispatchToProps
+    mapStateToProps
 )(ContactList)

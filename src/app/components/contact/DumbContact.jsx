@@ -10,6 +10,9 @@ const DumbContact = props => {
         <form autoComplete="off" name={'form' + props.id} id={'form' + props.id} onSubmit={e => {
           e.preventDefault()
           if (e.currentTarget.checkValidity()) {
+            //NOTHING should ever use fe validation, only sanitization
+            //now, it is not really needed
+            //https://twitter.com/XssPayloads  for some examples
             props.onEdit();
           }
           return false
@@ -22,7 +25,8 @@ const DumbContact = props => {
           </fieldset>
           <fieldset>
             <input id={'surname' + props.id} type='text'
-              placeholder="Your , e.g. Rossi"
+              placeholder="Your , e.g. Ro
+              ￼SAVE￼DELETEssi"
               // pattern="[a-zA-Z]"
               required name='surname'
               disabled={!props.selected} defaultValue={props.surname} />
@@ -36,7 +40,11 @@ const DumbContact = props => {
               disabled={!props.selected} defaultValue={props.email} />
           </fieldset>
           <fieldset>
-            <RemoteCountrySelect countries={props.countries} ></RemoteCountrySelect>
+            <RemoteCountrySelect countries={props.countries} 
+                                  selected={props.selected}
+                                  country={props.country}
+                                  onChange={props.onSelect} >
+             </RemoteCountrySelect>
           </fieldset>
           <div className={props.selected ? '' : 'hidden'}>
             <input type="submit" value='Save' className='btn btn-alpha' />
